@@ -1,0 +1,113 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F3F3F3;
+}
+
+#debug {
+    position: absolute;
+    bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+#debug h4 {
+    margin-left: 8px;
+}
+
+#debug button {
+    margin: 2px 8px;
+}
+
+.nav {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.center-children {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.pos-bottom {
+    position: absolute;
+    bottom: 0px;
+    right: 200px;
+}
+
+#watson {
+    display: flex;
+    flex-direction: column;
+}
+
+#watson img {
+}
+
+#watson .hat {
+    transform: rotateZ(0deg) translateY(53px);
+    transform-origin: bottom right;
+    transition: transform 0.4s;
+    height: 53px;
+}
+
+#watson .hat.open {
+    transform: rotateZ(130deg);
+}
+
+.tweet-logo {
+    width: 64px;
+    height: 64px;
+}
+
+.tweet-author {
+    margin-bottom: 0px;
+    display: inline-block;
+}
+
+.tweet-author-username {
+    color: #777;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px 4px;
+    transition: transform 0.4s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    transform: scale(1.1);
+}
+
+.tweets {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+}
+
+.tweet {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: white;
+    cursor: pointer;
+    max-width: 500px;
+}
+
+.tweet-input {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.tweet-input .input-group {
+    max-width: 500px;
+}
+
+.animated {
+    animation-duration: 0.4s;
+}
