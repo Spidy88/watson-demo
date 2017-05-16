@@ -14,6 +14,7 @@
 	<h4>Debug Controls</h4>
 	<button class="btn btn-default" onclick="watson.loadTweetsByKeyword(debugTweets)">Load Tweets</button>
 	<button class="btn btn-default" onclick="watson.unloadTweetsByKeyword()">Unload Tweets</button>
+	<button class="btn btn-default" onclick="watson.sendTweetToWatson()">Analyze Tweet</button>
 	<button class="btn btn-default" onclick="watson.openHat()">Open Hat</button>
 	<button class="btn btn-default" onclick="watson.closeHat()">Close Hat</button>
 </div>
@@ -48,6 +49,10 @@
 			</div>
 
 			<div class="center-children pos-bottom">
+				<div id="tweet-dropper">
+					<img class="tweet-drop" src="assets/Twitter_Logo_Blue.png" />
+				</div>
+
 				<div id="watson">
 					<img class="hat" height="53px" src="assets/gentleman-icon-top.png">
 					<img class="body" height="200px" src="assets/gentleman-icon-bottom.png">
@@ -66,7 +71,7 @@
 </div>
 
 <template id="tweet-template">
-	<div id="main-tweet" class="tweet card animated fadeInDown">
+	<div class="tweet card animated fadeInDown">
 		<div class="media">
 			<div class="media-left">
 				<a href="#">

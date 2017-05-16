@@ -33,6 +33,12 @@ $(document).ready(function() {
         $('#main #' + nextActivePanel).removeClass('hide');
     });
 
+    $('#keyword-tweets').on('click', '.tweet', function() {
+        var $tweet = $(this);
+
+        watson.selectTweetToAnalyze($tweet);
+    });
+
     $('#analyze-tweet #keyword').on('keypress', function(e) {
         if( e.keyCode === 13 ) {
             watson.getTweetsByKeyword();
@@ -50,12 +56,29 @@ var watson = {
         $('#watson .hat').removeClass('open');
     },
 
+    selectTweetToAnalyze: function($tweet) {
+        $('#keyword-tweets .tweet.active').removeClass('active');
+
+        $tweet.addClass('active');
+        setTimeout(function() {
+            watson.sendTweetToWatson();
+        }, 400);
+    },
+
+    sendTweetToWatson: function() {
+        watson.openHat();
+    },
+
     getTweetsByKeyword: function() {
         var keyword = $('#analyze-tweet #keyword').val();
 
         if( !keyword ) {
             return;
         }
+
+        $.get('/tweets/' + keyword, function(results) {
+
+        });
 
         watson.loadTweetsByKeyword(debugTweets);
     },
@@ -80,6 +103,10 @@ var watson = {
                 }
             }(keywordTweets, tweet), 150 * i);
         }
+
+        setTimeout(function() {
+            keywordTweets.find('.tweet').removeClass('animated').removeClass('fadeInDown');
+        }, 150 * i);
     },
 
     unloadTweetsByKeyword: function() {
@@ -88,11 +115,10 @@ var watson = {
 
         for(var i = 0; i < tweets.length; i++ ) {
             var tweet = $(tweets[i]);
-            tweet.removeClass('fadeInDown');
 
             setTimeout(function(tweet) {
                 return function() {
-                    tweet.addClass('fadeOutUp');
+                    tweet.addClass('animated fadeOutUp');
                 }
             }(tweet), 150 * i);
         }

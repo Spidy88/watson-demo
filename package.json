@@ -9,6 +9,8 @@
   "author": "Nick Ferraro <the.nick.ferraro@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "express": "4.15.2"
+    "bluebird": "3.5.0",
+    "express": "4.15.2",
+    "request": "2.81.0"
   }
 }

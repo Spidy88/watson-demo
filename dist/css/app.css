@@ -69,6 +69,14 @@ body {
     color: #777;
 }
 
+#tweet-dropper {
+    position: absolute;
+}
+
+.tweet-drop {
+    width: 32px;
+}
+
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 4px;
@@ -78,7 +86,6 @@ body {
 
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    transform: scale(1.1);
 }
 
 .tweets {
@@ -95,6 +102,10 @@ body {
     background-color: white;
     cursor: pointer;
     max-width: 500px;
+}
+
+.tweet.active {
+    transform: scale(1.1);
 }
 
 .tweet-input {
