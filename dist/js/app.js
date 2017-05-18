@@ -33,6 +33,10 @@ $(document).ready(function() {
         $('#main #' + nextActivePanel).removeClass('hide');
     });
 
+    $('#keyword-prefix').on('click', function() {
+        $(this).text($(this).text() === '@' ? '#' : '@');
+    });
+
     $('#keyword-tweets').on('click', '.tweet', function() {
         var $tweet = $(this);
 
@@ -58,29 +62,65 @@ var watson = {
 
     selectTweetToAnalyze: function($tweet) {
         $('#keyword-tweets .tweet.active').removeClass('active');
+        var text = $tweet.find('.tweet-content').data('text');
 
         $tweet.addClass('active');
-        setTimeout(function() {
-            watson.sendTweetToWatson();
-        }, 400);
-    },
+        $.ajax({
+            url: '/watson/analyze',
+            method: 'POST',
+            data: JSON.stringify({ text: text }),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(response) {
+                var documentSentiment = response.sentiment.document;
+                var sentimentLabel = documentSentiment.label[0].toUpperCase() + documentSentiment.label.substring(1).toLowerCase();
+                var sentimentScore = (documentSentiment.score * 100).toFixed(2) + '%';
 
-    sendTweetToWatson: function() {
-        watson.openHat();
+                $('#analysis .sentiment .direction').text(sentimentLabel);
+                $('#analysis .sentiment .value').text(sentimentScore);
+                $('#analysis .sentiment img').attr('src', 'assets/' + documentSentiment.label + '.png');
+
+                var documentEmotions = response.emotion.document.emotion;
+                var joy = documentEmotions.joy || 0;
+                var sadness = documentEmotions.sadness || 0;
+                var disgust = documentEmotions.disgust || 0;
+                var fear = documentEmotions.fear || 0;
+                var anger = documentEmotions.anger || 0;
+
+                $('#analysis .emotions .emotion.joy .score').text(joy.toFixed(2) + '%');
+                $('#analysis .emotions .emotion.sad .score').text(sadness.toFixed(2) + '%');
+                $('#analysis .emotions .emotion.disgust .score').text(disgust.toFixed(2) + '%');
+                $('#analysis .emotions .emotion.fear .score').text(fear.toFixed(2) + '%');
+                $('#analysis .emotions .emotion.anger .score').text(anger.toFixed(2) + '%');
+
+                watson.openHat();
+            }
+        });
     },
 
     getTweetsByKeyword: function() {
-        var keyword = $('#analyze-tweet #keyword').val();
+        $('#analyze-tweet #analyze').button('loading');
+
+        var prefix = encodeURIComponent($('#keyword-prefix').text());
+        var keyword = encodeURIComponent($('#analyze-tweet #keyword').val());
 
         if( !keyword ) {
             return;
         }
 
-        $.get('/tweets/' + keyword, function(results) {
-
+        $.get('/tweets/' + prefix + keyword, function(results) {
+            var tweets = _.map(results.tweets, function(tweet) {
+                return {
+                    author: tweet.user.name,
+                    username: tweet.user.screen_name,
+                    content: tweet.text,
+                    cleanContent: tweet.cleanText
+                };
+            });
+            watson.loadTweetsByKeyword(tweets);
+        }).always(function() {
+            $('#analyze-tweet #analyze').button('reset');
         });
-
-        watson.loadTweetsByKeyword(debugTweets);
     },
 
     loadTweetsByKeyword: function(tweets) {
@@ -95,7 +135,8 @@ var watson = {
 
             tweet.find('.tweet-author').text(tweets[i].author);
             tweet.find('.tweet-author-username').text('@' + tweets[i].username);
-            tweet.find('.tweet-content').text(tweets[i].content);
+            tweet.find('.tweet-content').text(tweets[i].cleanContent);
+            tweet.find('.tweet-content').data(tweets[i].content);
 
             setTimeout(function(keywordTweets, tweet) {
                 return function() {

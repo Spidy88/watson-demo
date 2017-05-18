@@ -27,7 +27,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-items: center;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .pos-bottom {
@@ -121,4 +121,63 @@ body {
 
 .animated {
     animation-duration: 0.4s;
+}
+
+.carousel-inner .item {
+    width: 500px;
+    min-height: 200px;
+}
+
+.carousel-control.left, .carousel-control.right {
+    background-image: initial;
+}
+
+.carousel-caption {
+    color: black;
+    text-shadow: initial;
+    padding-bottom: 0px;
+    font-size: 1.2em;
+}
+
+.sentiment {
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'Open Sans';
+}
+
+.sentiment img {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.sentiment .direction {
+    font-size: 2em;
+}
+
+.sentiment .value {
+    font-size: 1.25em;
+}
+
+.emotions {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.emotions .emotion {
+    width: 150px;
+    text-align: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-family: Open Sans;
+}
+
+.emotions .emotion .elabel {
+    font-size: 1.2em;
+}
+
+.emotions .emotion img {
+    width: 32px;
+    margin: 4px 0;
 }
