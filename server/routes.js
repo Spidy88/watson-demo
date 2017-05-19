@@ -163,6 +163,12 @@ function getTweets(url, accessToken, cb) {
 }
 
 function postWatsonAnalyze(req, res) {
+    console.log('Analyzing: ', req.body.text);
+    if( !req.body.text ) {
+        res.status(400).json({ message: 'No text provided for analysis' });
+        return;
+    }
+
     nlu.analyze({
         'html': decodeURIComponent(req.body.text), // Buffer or String
         'features': {

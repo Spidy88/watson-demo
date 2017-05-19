@@ -128,6 +128,11 @@ body {
     min-height: 200px;
 }
 
+.carousel-inner .panel-body {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
 .carousel-control.left, .carousel-control.right {
     background-image: initial;
 }
@@ -180,4 +185,17 @@ body {
 .emotions .emotion img {
     width: 32px;
     margin: 4px 0;
+}
+
+.keywords, .entities {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.keywords .label, .entities .label {
+    font-size: 1.5em;
+    font-weight: 300;
+    cursor: pointer;
+    display: inline-block;
+    margin: 4px;
 }
