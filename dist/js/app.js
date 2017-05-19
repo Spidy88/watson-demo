@@ -177,6 +177,7 @@ var watson = {
                     $entities.append($newEntry);
                 });
 
+                $('#analysis-carousel').addClass('active');
                 watson.openHat();
             }
         });

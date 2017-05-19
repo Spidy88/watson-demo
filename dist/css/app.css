@@ -199,3 +199,12 @@ body {
     display: inline-block;
     margin: 4px;
 }
+
+#analysis-carousel {
+    transition: transform 0.4s;
+    transform: scale(0);
+}
+
+#analysis-carousel.active {
+    transform: scale(1);
+}
